@@ -1,0 +1,1207 @@
+\documentclass[landscape, 8pt]{extarticle}
+\usepackage[a4paper, landscape, hmargin=1cm, tmargin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{environ}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[shortlabels]{enumitem}
+
+\newcommand{\Rarr}{\Rightarrow}
+\newcommand{\Larr}{\Leftarrow}
+\newcommand{\Lrarr}{\Leftrightarrow}
+\newcommand{\rarr}{\rightarrow}
+\newcommand{\larr}{\leftarrow}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\Ps}{\mathcal{P}}
+\newcommand{\intd}{\text{d}}
+\newcommand{\xwarr}{\stackrel{\rarr}{x}}
+\newcommand{\Bin}{\mathrm{Bin}}
+\newcommand{\Po}{\mathrm{Po}}
+\newcommand{\intff}{\int_{-\infty}^\infty}
+\newcommand{\Normal}{\mathcal{N}}
+
+\setlength{\columnseprule}{0.2pt}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Yudhistira Wibowo}
+\lhead{DWT Zusammenfassung (Angabe ohne Gewähr!)}
+\lfoot{Vergiss nicht, dass die Cheatsheet \textbf{handgeschrieben} werden muss}
+\rfoot{Page \thepage}
+
+\NewEnviron{myeq}{%
+\begin{equation*}
+    \scalebox{0.9}{$\BODY$}
+\end{equation*}
+}
+
+\begin{document}
+\raggedcolumns
+\begin{multicols*}{3}
+
+
+\section{Diskrete Wahrscheinlichkleitraum} 
+\subsection{Rechnen mit Ereignissen}
+\begin{enumerate}
+\item {Ereignissen
+\begin{myeq}
+A \subseteq B \Rightarrow \Pr[A] \leq \Pr[B]
+\end{myeq}
+} 
+\item{Additionssatz
+\begin{myeq}
+\forall i \neq j : A_i\cap A_j = \emptyset \Rightarrow \Pr\left[\bigcup_{i=1}^n A_i\right] = \sum_{i=1}^n \Pr[A_i]
+\end{myeq}
+\textit{"Wahrscheinlichkeit von Vereinigung disjunkter Ereignissen ist nicht anders als die Summe der Wahrscheinlichkeit von den Ereignissen"}
+}
+\item{Siebformel (Inklusion/Exklusion)
+\begin{myeq}
+\Pr[A\cup B] = \Pr[A] + \Pr[B]- \Pr[A\cap B]
+\end{myeq}
+Oder verallgemeint
+\begin{myeq}
+\Pr\left[\bigcup_{i = 1}^n A_i\right] = \sum_{\emptyset\subset I \subseteq [n]} (-1)^{|I| + 1} \cdot \Pr\left[\bigcap_{i \in I} A_i\right]
+\end{myeq}
+}
+\item{Boolesche Ungleichung
+\begin{myeq}
+\Pr\left[\bigcup_{i=1}^n A_i\right] \leq \sum_{i=1}^n \Pr[A_i]
+\end{myeq}
+}
+\item {Bedingte Wahrscheinlichkeit
+\begin{myeq}
+\Pr[Y] > 0 : \Pr[X|Y] = \frac{\Pr[X\cap Y]}{\Pr[Y]} = \frac{|X\cap Y|}{|Y|}
+\end{myeq}
+}
+\item{Satz der totalen Wahrscheinlichkeit
+\begin{myeq}
+B\subseteq \biguplus_{i=1}^n A_i \Rarr \Pr[B] = \sum_{i=1}^n \Pr[B|A_i] \cdot \Pr[A_i]
+\end{myeq}
+}
+\item{Satz von Bayes
+\begin{myeq}
+\Pr[B] > 0, B\subseteq \biguplus_{i=1}^n A_i \Rarr \Pr[A_i|B] = \frac{\Pr[B|A_i] \cdot \Pr[A_i]}{\sum_{j=1}^n \Pr[B|A_j] \cdot \Pr[A_j]}
+\end{myeq}
+}
+\item {Multiplikationssatz
+\begin{myeq}
+\begin{aligned}
+\Pr\left[\bigcap_{i=1}^n A_i\right] &= \Pr[A_1] \cdot \prod_{i=2}^n \Pr\left[A_i|\bigcap_{j=1}^{i-1} A_j \right] \\ &= \Pr[A_1] \cdot \Pr[A_2|A_1] \cdot \ldots \cdot \Pr[A_n | A_1 \cap \dots\cap A_{n-1}]
+\end{aligned}
+\end{myeq}
+}
+\item{Unabhängigkeit
+\begin{myeq}
+\Pr[X\cap Y] = \Pr[X] \cdot \Pr[Y]
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Zufallsvariable}
+\begin{enumerate}
+\item {Dichtefunktion
+\begin{myeq}
+f_X : \R \ni x \mapsto \Pr[X=x] \in [0,1]
+\end{myeq}
+}
+\item {Verteilungsfunktion
+\begin{myeq}
+F_X:\R\ni x \mapsto \Pr[X \leq x] = \sum_{x'\in W_X: x' \leq x} \Pr[X = x'] \in [0,1]
+\end{myeq}
+}
+\item {Bedingte Zufallsvariable
+\begin{myeq}
+f_{X|A}(x) = \Pr[X = x~|~A] = \frac{\Pr[X=x \cap A]}{\Pr[A]}
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Momenten von Zufallsvariablen}
+\begin{enumerate}
+\item{Erwartungswert
+\begin{myeq}
+\begin{aligned}
+\E[X] &= \sum_{x\in W_x} x \cdot \Pr[X = x] \\ 
+&= \sum_{\omega\in\Omega} X(\omega) \cdot \Pr[\omega] \\
+&= \sum_{i = 1}^n \E[X | A_i] \cdot \Pr[A_i] \\
+&\stackrel{W_x\subseteq\N_0}{=} \sum_{i=1}^\infty \Pr[X \geq i] \\
+\end{aligned}
+\end{myeq}
+Existienz eines Erwartungswerts: \\ $\sum_{x\in W_x} |x| \cdot \Pr[X = x]$ konvergiert / $\E[X]$ absolut konvergiert.
+}
+\item {$k$-te Moment
+\begin{myeq}
+\E[X^k]
+\end{myeq}
+}
+\item{Varianz
+\begin{myeq}
+\begin{aligned}
+\Var[X] &= \E[(X - \E[X])^2] \\
+&= \sum_{x\in W_X} \Pr[X = x] \cdot (x - \E[X])^2 \\
+&= \E[X^2] - \E[X]^2
+\end{aligned}
+\end{myeq}
+Existienz eines Varianz: \\ $\E[X]$ und $\E[X^2]$ existieren.
+}
+\item {Standardabweichung
+\begin{myeq}
+\sigma = \sqrt{\Var[X]}
+\end{myeq}
+}
+\item {$k$-te zentrale Moment
+\begin{myeq}
+\E[(X - \E[X])^k]
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Gesetze zum Rechnen mit Zufallsvariablen}
+\begin{enumerate}
+
+\item{Einfache linearität des Erwartungswerts
+\begin{myeq}
+\E[a\cdot X+ b] = a \cdot \E[X] + b
+\end{myeq}
+\begin{myeq}
+\Var[a \cdot X + b] = a^2 \cdot \Var[X]
+\end{myeq}
+}
+\item{Monotonie des Erwartungswerts
+\begin{myeq}
+\forall \omega \in \Omega : X(\omega) \leq Y(\omega) \Rarr \E[X] \leq \E[Y]
+\end{myeq}
+}
+\item {Satz 36\\
+Seien $X$ eine Zufallsvariable, $A_1, A_2, \dots$ mit $\bigcup_{i=1}^\infty A_i = \Omega$, und $\forall i \in \N : \Pr[A_i] > 0$
+\begin{myeq}
+\E[X] = \sum_{i=1}^\infty \E[X|A_i] \cdot \Pr[A_i]
+\end{myeq}
+Sofern die Summe $\sum_{i = 1}^\infty |\E[X|A_i]| \cdot \Pr[A_i]$ konvergiert
+}
+\item {Mehrere Zufallsvariable\\
+Gemeinsame Dichte
+\begin{myeq}
+f_{X,Y}(x,y) = \Pr[X = x, Y = y]
+\end{myeq}
+Randdichten
+\begin{myeq}
+f_X(x) = \sum_{y \in W_Y} f_{X,Y}(x,y)
+\end{myeq}
+Gemeinsame Verteilung
+\begin{myeq}
+F_{X,Y}(x,y) = \Pr[X \leq x, Y \leq y] = \sum_{x' \leq x}\sum_{y' \leq y} f_{X,Y}(x', y')
+\end{myeq}
+Randverteilung
+\begin{myeq}
+F_X(x) = \sum_{x' \in x} f_{X,Y}(x,y) = \sum_{x' \leq x}\sum_{y \leq W_Y} f_{X,Y}(x', y)
+\end{myeq}
+Faltungsformel
+\begin{myeq}
+Z := X + Y \Rarr f_Z(z) = \sum_{x\in W_X} f_X(x) \cdot f_Y(z-x) 
+\end{myeq}
+}
+\item {Unabhängige Zufallsvariable \\ (hier angenommen $X_1,\dots,X_n$ unabhängig)
+\begin{myeq}
+\Pr[X_1 = a_1, \dots, X_n = a_n] = \Pr[X_1 = a_1] \cdot \ldots \cdot \Pr[X_n = a_n]
+\end{myeq}
+Multiplikativität des Erwartungswert
+\begin{myeq}
+\E\left[\prod_{i=1}^n X_i\right] = \prod_{i=1}^n \E[X_i]
+\end{myeq}
+Varianz einer Summe
+\begin{myeq}
+\Var\left[\sum_{i=1}^n X_i\right] = \sum_{i = 1}^n \Var[X_i]
+\end{myeq}
+Satz 46
+\begin{myeq}
+\forall i \in {1,\dots, n} : S_i\subseteq W_{X_i} \Rarr "X_1 \in S_1",\dots,"X_n\in S_n" \text{ unabhängig}
+\end{myeq}
+Diese Eigenschaften gelten nur in 1 Richtung! (Also keine gdw. Beziehung!)
+}
+\item{Linearität des Erwartungswerts
+\begin{myeq}
+\E\left[\sum_{i=1}^n a_i \cdot X_i\right] =\sum_{i=1}^n a_n\E[X_n] 
+\end{myeq}
+}
+\item {Indikatorsvariable
+\begin{myeq}
+I_A = \begin{cases}
+1 &\text{falls $A$ eintritt} \\
+0 &\text{sonst}
+\end{cases}
+\end{myeq}
+Und es gilt 
+\begin{myeq}
+\E[I_{A_1} \cdot \ldots \cdot I_{A_n}] = \Pr[A_1 \cap \ldots \cap A_n]
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Wichtige diskrete Verteilungen}
+Sei $p$ wenn Erfolgreich und $q = 1 - p$
+\begin{enumerate}
+\item {Bernoulli
+\begin{myeq}
+f_X(x) = 
+\begin{cases}
+p &x = 1\\
+1 - p &x = 0
+\end{cases},\quad
+\E[X] = p, \quad \Var[X] = pq
+\end{myeq}
+}
+\item{Binomial ($X \sim \Bin(n,p)$)
+\begin{myeq}
+f_X(x) := b(x;n,p) = \begin{pmatrix} n \\ x \end{pmatrix} \cdot p^x \cdot q^{n-x}, \quad \E[X] = np, \quad \Var[X] = npq
+\end{myeq} 
+}
+\item{Geometrisch
+\begin{myeq}
+i\in \N : f_X(i) = pq^{i -1}, \quad \E[X] = \frac{1}{p}, \quad \Var[X] = \frac{q}{p^2}
+\end{myeq}
+Gedächtnislosigkeit
+\begin{myeq}
+\Pr[X > y + x |X > x] = \Pr[X > y]
+\end{myeq}
+$n$-ten Erfolg 
+\begin{myeq}
+f_Z(z) =\begin{pmatrix}z - 1\\n -1\end{pmatrix} \cdot p^n \cdot q^{z-n}
+\end{myeq}
+($Z$ ist negativ binomialverteilt mit Ordnung $n$) \\ \\
+Coupon-Collector-Problem\\
+$X_i$ geometrisch verteilt mit:
+\begin{myeq}
+p = \frac{n - i + 1}{n}, \quad \E[X_i] = \frac{n}{n - i + 1}
+\end{myeq}
+Es gilt daher:
+\begin{myeq}
+\E[X] = n \cdot \sum_{i = 1}^n \frac{1}{i}
+\end{myeq}
+Hypergeometrisch
+\begin{myeq}
+\Pr[X] = \frac{\begin{pmatrix} b \\ x \end{pmatrix}\begin{pmatrix} a \\ r - x \end{pmatrix}}{\begin{pmatrix} a +b \\ r \end{pmatrix}}
+\end{myeq}
+}
+\item{Poisson ($X \sim \Po(\lambda)$)
+\begin{myeq}
+i \in \N_0 : f_X(i) = \frac{e^{-\lambda}\lambda^i}{i!}, \quad \E[X] = \lambda, \quad \Var[X] = \lambda
+\end{myeq}
+Poisson als Grenzwert für Binomial \\ 
+($X \sim \Bin(n,\frac{\lambda}{n}) \stackrel{n\rarr\infty}{\longrightarrow} X \sim \Po(\lambda)$)
+\begin{myeq}
+\lim_{n\rarr \infty} b(k; n, p_n) = \frac{e^{-\lambda} \cdot \lambda^k}{k!}
+\end{myeq}
+Summe von Poisson Zufallsvariablen
+\begin{myeq}
+X \sim \Po(\lambda), ~ Y \sim \Po(\mu) \Rarr Z = X + Y \sim \Po(\lambda + \mu)
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Abschätzung von Wahrscheinlichkeiten}
+
+\begin{enumerate}
+\item{Markov Ungleichung
+\begin{myeq}
+t > 0 : X \geq 0 \Rarr \Pr[X \geq t] \leq \frac{\E[X]}{t} 
+\end{myeq}
+}
+\item{Chebyshev Ungleichung
+\begin{myeq}
+t > 0 : \Pr[|X - \E[X]| \geq t] \leq \frac{\Var[X]}{t^2}
+\end{myeq}
+}
+\item{
+Gesetzt der großen Zahlen \\
+Seien $n$ die Anzahl der Versuch, $X$ eine Zufallsvariable und $X_1, \dots, X_n$ unabhängige Zufallsvariablen mit  derselben Verteilung von $X$,
+\begin{myeq}
+\epsilon, \delta > 0, ~ \forall n \geq \frac{\Var[X]}{\epsilon\delta^2}, ~ Z = \frac{\sum_{i=1}^n X_i}{n} : \Pr[|Z-\E[X]|\geq \delta] \leq \epsilon 
+\end{myeq}
+}
+\item{Relative Häufigkeit \\
+Seien $X$ bernoulliverteilte Indikatorvariable für $A$ mit $\E[X] = p$, $\Pr[A] = p$,
+\begin{myeq}
+\begin{aligned}
+Z &= \frac{|\text{Versuche, bei denen A eingetreten ist}|}{|\text{alle Versuche}|} = \frac{\sum_{i=1}^n X_i}{n} \\ &\Rarr \Pr[|Z-p|\geq \delta] \leq \epsilon
+\end{aligned}
+\end{myeq}
+\begin{myeq}
+\text{Relative Abweichung} = \left| \frac{1}{n} \cdot \sum_i X_i - p \right|
+\end{myeq}
+\begin{myeq}
+\text{Absolute Abweichung} = \left|\sum_i X_i - np \right|
+\end{myeq}
+}
+\item{Chernoff-Schranken\\
+Es muss für Formel in dieser Nummer gelten: \\
+$X_1,\dots,X_n$ unabhängige Bernoulli-verteilte Zufallsvariable mit $\Pr[X_i = 1] = p_i$ und $\Pr[X_i = 0] = 1 - p_i$, $X = \sum_{i=1}^n X_i$, $ \mu = \E[X] = \sum_{i=1}^n p_i$ \\\\
+\textit{Upper tail}
+\begin{myeq}
+\delta > 0 : \Pr[X \geq (1+\delta) \mu] \leq \left(\frac{e^\delta}{(1 + \delta)^{1 + \delta}}\right)^\mu
+\end{myeq}
+\textit{Lower tail}
+\begin{myeq}
+0 < \delta < 1 : \Pr[X \leq (1-\delta) \mu] \leq \left(\frac{e^{-\delta}}{(1 - \delta)^{1 - \delta}}\right)^\mu
+\end{myeq}
+Chernoff-Schranken hängen exponentiell von $\mu$ ab.\\
+Lemma 67
+\begin{myeq}
+0 \leq \delta < 1: (1 - \delta)^{1 - \delta} \geq e^{\frac{\delta^2}{2} - \delta} \text{ und } (1 + \delta)^{1+\delta} \geq e^{\frac{\delta^2}{3} + \delta}
+\end{myeq}
+Korollar 68
+\begin{myeq}
+\forall 0 < \delta \leq 1 : \Pr[X \geq (1 + \delta)\mu] \leq e^{-\mu\frac{\delta^2}{3}}
+\end{myeq}
+\begin{myeq}
+\forall 0 < \delta \leq 1 : \Pr[X \leq (1 - \delta)\mu] \leq e^{-\mu\frac{\delta^2}{2}}
+\end{myeq}
+\begin{myeq}
+\forall 0 < \delta \leq 1 : \Pr[|X - \mu| \geq \delta\mu] \leq 2e^{-\mu\frac{\delta^2}{3}}
+\end{myeq}
+\begin{myeq}
+\Pr[X \geq (1 + \delta)\mu] \leq \left(\frac{e}{1 + \delta}\right)^{(1 + \delta)\mu}
+\end{myeq}
+\begin{myeq}
+t \geq 2e\mu : \Pr[X \geq t] \leq 2^{-t}
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Erzeugende Funktionen}
+\begin{enumerate}
+\item {Allgemeine Formel
+\begin{myeq}
+G_X(s) = \E[s^X] = \sum_{k =0}^\infty \Pr[X = k] \cdot s^k
+\end{myeq}
+}
+\item {Addition mit Konstanten ($Y = X + t$)
+\begin{myeq}
+G_Y(s) = s^t \cdot \E[s^X] = s^t \cdot G_X(s)
+\end{myeq}
+}
+\item{Aus Summen von Zufallsvariablen \\ 
+Feste Summen \\
+$X_1, \dots, X_n$ unabhängig und $Z = \sum_{i=1}^n X_i$\\
+\begin{myeq}
+G_Z(s) = \prod_{i=1}^n G_{X_i}(s)
+\end{myeq}
+Zufällige Summen \\
+$X_1, X_2, \dots$ unabhängig, $N$ unabhängige Zufallsvariable mit wahscheinlichkeiterzeugende Funktion $G_N(s)$ und $Z = \sum_{i=1}^N X_i$\\
+\begin{myeq}
+G_Z(s) = G_N(G_X(s))
+\end{myeq}
+}
+\item{Ableitungen
+\begin{myeq}
+\begin{aligned}
+G_X'(s) &= \sum_{k=1}^\infty k \cdot \Pr[X = k] \cdot s^{k-1}\\
+G_X^{(i)}(0) &= \Pr[X = i] \cdot i!
+\end{aligned}
+\end{myeq}
+}
+\item {Erwartungswert
+\begin{myeq}
+\E[X] = G_X'(1)
+\end{myeq}
+}
+\item {Varianz
+\begin{myeq}
+\Var[X] = G_X''(1) + G_X'(1) - (G_X'(1))^2
+\end{myeq}
+}
+\item{Satz 71 (Eindeutigkeit) \\Dichte und Verteilung einer Zufallsvariablen $X$ mit $W_X \subseteq \N$ sind durch ihre wahrscheinlichkeiterzeugende Funktion eindeutig bestimmt.\\\\
+Gleichverteilt
+\begin{myeq}
+G_X(s) = \frac{s^{n+1}-1}{(n+1)(s-1)}
+\end{myeq}
+Bernoulli
+\begin{myeq}
+G_X(s) = 1 - p + ps
+\end{myeq}
+Binomial
+\begin{myeq}
+X \sim \Bin(n,p) \Rarr G_X(s) = (1 - p + ps)^n
+\end{myeq}
+Geometrisch
+\begin{myeq}
+G_X(s) = \frac{ps}{1 - (1- p)s}
+\end{myeq}
+Poisson
+\begin{myeq}
+X \sim \Po(\lambda) ~ (\text{oder } X \sim \Bin(n,\frac{\lambda}{n})) \Rarr G_X(s) = e^{\lambda(s-1)}
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Momenterzeugende Funktion}
+\begin{enumerate}
+\item {Algemeine Formel
+\begin{myeq}
+M_X(s) = \E[e^{Xs}] = G_X(e^s)
+\end{myeq}
+Gleichverteilt auf $[a,b]$
+\begin{myeq}
+M_U(t) = \frac{e^{tb} - e^{ta}}{t(b -a)} 
+\end{myeq}
+Normalverteilt $X \sim \Normal(\mu,\sigma^2)$
+\begin{myeq}
+M_X(t) = e^{\frac{t\mu + (t\sigma)^2}{2}}
+\end{myeq}
+} 
+\item{Aus Summen von Zufallsvariablen \\
+($Z = \sum_{i=1}^n X_i$)
+\begin{myeq}
+M_Z(s) = \prod_{i=1}^n M_{X_i}(s)
+\end{myeq}
+}
+\item{Zufällige Summen\\
+($Z = \sum_{i = 1}^N X_i$, $N$ ist Zufallsvariable)
+\begin{myeq}
+G_Z(s) = G_N(G_X(s))
+\end{myeq}
+}
+\end{enumerate}
+
+\section{Kontinuerliche Wahrscheinlichkeitsräume}
+\begin{enumerate}
+\item {Allgemein
+\begin{myeq}
+\int_{-\infty}^{+\infty} f_X(x) \intd x = 1
+\end{myeq}
+}
+\item{Intervalweise
+\begin{myeq}
+A = \bigcup_k I_k \Rarr \Pr[A] = \int_A f_X(x)\intd x = \sum_k \int_{I_k} f_X(x) \intd x
+\end{myeq}
+}
+\item{Verteilungsfunktion
+\begin{myeq}
+F_X(x) = \int_{-\infty}^x f_X(t) \intd t
+\end{myeq}
+}
+\item{Eigenschaften
+\begin{enumerate}[label= \alph*)]
+\item {$F_X$ monoton steigend}
+\item {$F_X$ stetig}
+\item {$\lim_{x \rarr -\infty} F_X(x) = 0$ und $\lim_{x \rarr \infty} F_X(x) = 1$}
+\item {$F$ differenzierbar $\Rarr f(x) = F'(X)$}
+\item {$\Pr[a < X \leq B] = F_X(b) - F_X(a)$}
+\item {$\int_{[a,b]} f(t) \intd t = \int_{]a,b]} f(t) \intd t = \int_{[a,b[} f(t) \intd t = \int_{]a,b[} f(t) \intd t$}
+\end{enumerate}
+}
+\end{enumerate}
+
+\subsection{$\sigma$-Algebren}
+\begin{enumerate}
+\item {Definition\\
+Sei $\Omega$ Menge, $\A \subseteq \Ps(\Omega)$ heißt $\sigma$-Algebra, wenn alle hier gelten:
+\begin{enumerate}[label= E\arabic*)]
+\item {
+$
+\Omega \in \A
+$
+}
+\item {
+$
+A \in \A \Rarr \overline{A} \in \A
+$
+}
+\item{
+$
+n \in \N: A_n\in \A \Rarr \bigcup_{n = 1}^\infty A_n \in \A
+$
+}
+\end{enumerate}
+Für jede endliche $\Omega$, stellt $\Ps(\Omega)$ eine $\sigma$-Algebra dar.\\
+Falls $\Omega = \R$ ist die Klasse der \textit{Borel'schen Mengen}.
+}
+\end{enumerate}
+
+\subsection{Kolmogorov-Axiome}
+\begin{enumerate}
+\item{Wahtscheinlichkeitmaß\\
+Eine Abbildung $\Pr[.] : \A \rarr [0,1]$ ist Wahrscheinlichkeitmaß auf $\sigma$-Algebren $\A$, wenn sie diese Eigenschaften hat:
+\begin{enumerate}[label= W\arabic*)]
+\item{
+$\Pr[\Omega] = 1$
+}
+\item {
+$A_1,A_2,\dots$ disjunkt $\Rarr \Pr\left[\bigcup_{i=1}^\infty A_i\right] = \sum_{i = 1}^\infty \Pr[A_i]$
+}
+\end{enumerate}
+}
+\item {Lemma 84\\
+Sei $(\Omega, \A, \Pr)$ Wahrscheinlichkeitraum, für Ereignisse $A, B, A_1, A_2, \dots$ gelten
+\begin{enumerate}[label = \alph*)]
+\item {
+$\Pr[\emptyset] = 0, \Pr[\Omega] = 1$
+}
+\item{
+$0 \leq \Pr[A] \leq 1$
+}
+\item{
+$\Pr[\overline{A}] = 1 - \Pr[A]$
+}
+\item{
+$A \subseteq B \Rarr \Pr[A] \leq \Pr[B]$
+}
+\item{(Additionssatz) \\
+$A_1,A_2,\dots$ disjunkt $\Rarr \Pr\left[\bigcup_{i=1}^\infty A_i\right] = \sum_{i = 1}^\infty \Pr[A_i]$
+}
+\end{enumerate}
+}
+\item {Messbarkeit einer Funktion
+\begin{myeq}
+U : \R, ~B : \R, ~f: U \rarr B \text{ messbar } \Lrarr U, B~ \text{Borel'schen Menge}
+\end{myeq}
+\begin{enumerate}[label = \alph*)]
+\item {Jede stetige Funktion ist messbar}
+\item {Jede messbaren Funktion kann man ein Lebesgue Integral ($\int f \intd \lambda$) zuordnen}
+\end{enumerate}
+}
+\end{enumerate}
+
+\subsection{Rechnen mit kontinuerlichen Zufallsvariablen}
+\begin{enumerate}
+\item {Allgemein
+\begin{myeq}
+Y = g(X), ~ g : \R \rarr \R, ~C = \{t \in \R, g(t) \leq y\} \Rarr F_Y(y) = \int_C f_X(t) \intd t
+\end{myeq}
+}
+\item {Effekt einer Änderung\\
+($Y = a\cdot X + b$)
+\begin{myeq}
+f_Y(y) = \Pr[aX + b\leq y] = F_X\left(\frac{y -b}{a}\right) = f_X\left(\frac{y - b}{a}\right) \cdot \frac{1}{a}
+\end{myeq}
+}
+\item{Simulation von Zufallsvariablen\\
+($\Tilde{X} = F_X^{-1}(U)$)
+\begin{myeq}
+\Pr[\Tilde{X} \leq t] = F_X(t)
+\end{myeq}
+}
+\item{Kontinuerlich als Grenzwerte von Diskreten
+\begin{myeq}
+n \in \Z : X_\delta = n \delta \Lrarr X \in [n\delta, (n + 1)\delta]
+\end{myeq}
+\begin{myeq}
+\Pr[X_\delta = n\delta] = F_X((n+1)\delta) - F_X(n\delta)
+\end{myeq}
+}
+\item {Erwartungswert
+\begin{myeq}
+\int_{-\infty}^\infty |t| \cdot f_X(t) \intd t \text{ endlich } \Rarr \E[X] = \int_{-\infty}^\infty t \cdot f_X(t) \intd t
+\end{myeq}
+\begin{myeq}
+Y = g(X) \Rarr \E[X] = \int_{-\infty}^\infty g(t) \cdot f_X(t) \intd t
+\end{myeq}
+}
+\item {Varianz
+\begin{myeq}
+\Var[X] = \int_{-\infty}^\infty (t - \E[X])^2 \cdot f_X(t) \intd t \text{ (sofern existiert) }
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Wichtige stetige Verteilungen}
+\begin{enumerate}
+\item {Gleichverteilung
+\begin{myeq}
+f(x) = \begin{cases}
+\frac{1}{b - a} &x \in [a, b]\\
+0 &\text{sonst}
+\end{cases}, \quad
+F(x) = \begin{cases}
+0 &x < a\\
+\frac{x - a}{b - a} &a \leq x \leq b\\
+1 &x > b
+\end{cases},
+\end{myeq}
+\begin{myeq}
+\E[X] = \frac{a + b}{2}, \quad
+\Var[X] = \frac{(a -b )^2}{12}
+\end{myeq}
+}
+\item {Normalverteilung mit Parameter $\mu \in \R, \sigma \in \R^{+}$ ($X \sim \Normal(\mu, \sigma^2)$)
+\begin{myeq}
+f(x) = \varphi(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma}\cdot \exp{\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)}
+\end{myeq}
+\begin{myeq}
+F(x) = \Phi(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} \cdot \int_{-\infty}^x  \exp{\left(-\frac{(t - \mu)^2}{2\sigma^2}\right)} \intd t
+\end{myeq}
+\begin{myeq}
+I = \int_{-\infty}^\infty e^{-\frac{x^2}{2}} \intd x = \sqrt{2\pi}
+\end{myeq}
+\begin{myeq}
+\E[X] = \mu, \quad \Var[X] = \sigma^2
+\end{myeq}
+Lineare Transformation
+\begin{myeq}
+X \sim \Normal(\mu, \sigma^2),~a \in \R^{+},~b\in \R,~Y = aX + b \Rarr Y \sim \Normal(a\mu + b, a^2\sigma^2)
+\end{myeq}
+Normierte Normalverteilung ($\Normal(0, 1)$)
+\begin{myeq}
+X \sim \Normal(\mu, \sigma^2), ~Y = \frac{X - \mu}{\sigma} \Rarr Y \sim \Normal(0, 1)
+\end{myeq}
+\begin{myeq}
+X \sim \Normal(\mu, \sigma^2), ~Y = \frac{X - \mu}{\sigma} \Rarr \Pr[a < X \leq b] = \Phi\left(\frac{b - \mu}{\sigma}\right) - \Phi\left(\frac{a - \mu}{\sigma}\right)
+\end{myeq}
+}
+\item {Exponentialverteilung mit Parameter $\lambda > 0$
+\begin{myeq}
+f(x) = \begin{cases}
+\lambda \cdot e^{-\lambda x} &x \geq 0\\
+0 &\text{sonst}
+\end{cases}, \quad
+F(x) = 1 - e^{-\lambda x},
+\end{myeq}
+\begin{myeq}
+\E[X] = \frac{1}{\lambda}, \quad \Var[X] = \frac{1}{\lambda^2}
+\end{myeq}
+Eigenschaften
+\begin{enumerate}[label=\alph*)]
+\item {Skalierung \\
+$X$ exponentialverteilt mit $\lambda > 0,~Y = aX \Rarr Y$ exponentialverteilt mit $\frac{\lambda}{a}$
+}
+\item {Gedächtnislosigkeit
+\begin{myeq}
+\Pr[X > x + y ~|~ X > y] = \Pr[X > x]
+\end{myeq}
+}
+\end{enumerate}
+Exponential als Grenzwert Geometrischer\\
+Sei $X_n$ geometrisch verteilt mit $p_n = \frac{\lambda}{n}$, dann ist $Y_n = \frac{1}{n}X_n$ exponentailverteilt mit Parameter $\lambda$\\\\
+Poisson-Prozess\\
+Sei $T_i$ exponentialverteilt mit Parameter $\lambda_T$
+\begin{myeq}
+X(t) = \max\{n \in \N ~|~ \sum_{i=1}^n T_i \leq t\} \Rarr X(t) \sim \Po(t \cdot \lambda_T)
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Mehrere kontinuerliche Zufallsvariable}
+\begin{enumerate}
+\item {Mehrdimensionale Dichten ($f_{X,Y} : \R^2 \rarr \R^{+}_0$)
+\begin{myeq}
+f_{X,Y} = \int_{-\infty}^\infty \int_{-\infty}^\infty f_{X,Y}(x,y) \intd x \intd y = 1
+\end{myeq}
+\begin{myeq}
+A \subseteq \R^2 : \Pr[A] = \int_A f_{X,Y}(x,y) \intd x \intd y
+\end{myeq}
+Bereich
+\begin{myeq}
+B = \{(x,y) \in \R^2 ~|~ a \leq x \leq b, ~c \leq y \leq d\}
+\end{myeq}
+}
+\item {Gemeinsame Verteilung ($F_{X,Y}:\R^2 \rarr [0,1]$)
+\begin{myeq}
+F_{X,Y}(x,y) = \Pr[X \leq x, Y \leq y] = \int_{-\infty}^y \int_{-\infty}^x f_{X,Y}(u,v) \intd u \intd v
+\end{myeq}
+}
+\item {Randdichte
+\begin{myeq}
+f_X(x) = \intff f_{X,Y}(x, v) \intd v
+\end{myeq}
+}
+\item {Randverteilung
+\begin{myeq}
+F_X(x) = \Pr[X \leq x] = \int_{-\infty}^x \left[\int_{-\infty}^\infty f_{X,Y} (u,v) \intd v  \right] \intd u
+\end{myeq}
+}
+\item {Unabgängigkeit
+\begin{myeq}
+\forall x, y \in \R : \Pr[X \leq x, ~ Y \leq y] =  \Pr[X \leq x] \cdot \Pr[Y \leq y]
+\end{myeq}
+\begin{myeq}
+F_{X_1, \dots, X_n}(x_1, \dots, x_n) = \prod_{i = 1}^n F_{X_i}(x_i)
+\end{myeq}
+\begin{myeq}
+f_{X_1, \dots, X_n}(x_1, \dots, x_n) = \prod_{i = 1}^n f_{X_i}(x_i)
+\end{myeq}
+}
+\item {Warteproblem\\
+Seien $X_1,\dots, X_n$ unabhängig und exponentialverteilt mit Parametern $\lambda_1, \dots, \lambda_n$, dann ist $X = \min\{X_1,\dots,X_n\}$ exponentialverteilt mit $\sum_{i=1}^n \lambda_i$
+}
+\item {Summen von Zufallsvariablen ($Z = X + Y$)
+\begin{myeq}
+X, Y \text{ unabhängig} \Rarr f_Z(z) = \intff f_X(x) \cdot f_Y(z - x) \intd x
+\end{myeq}
+}
+\item {Additivität der Normalverteilung \\
+Seien $X_1,\dots,X_n$ unabhängig und normalverteilt mit Parametern $\mu_i, \sigma_i$ und $Z = \sum_{i=1}^n a_iX_i$
+\begin{myeq}
+\E[Z] = \mu = \sum_{i =1}^n a_i\mu_i, \quad \Var[Z] = \sigma^2 = \sum_{i=1}^n a_i^2\sigma_i^2
+\end{myeq}
+}
+\item {Momenterzeugende Funktionen
+\begin{myeq}
+M_X(s) = \E[e^{Xs}]
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Zentraler Grenzwertsatz}
+
+\begin{enumerate}
+\item {Allgemein\\
+Sei $X_1,\dots, X_n$ haben dieselbe Verteilung und unabhängig mit $\forall i \in \{1,\dots, n\} : \E[X_i] = \mu, \Var[X_i] = \sigma^2$,
+\begin{myeq}
+n \geq 1 : Y_n = \sum_{i=1}^n X_i \Rarr Z_n = \frac{Y_n - n \mu}{\sigma \sqrt{n}}
+\end{myeq}
+$Z_n$ ist asymptotisch standardnormalverteilt für $n\rarr \infty$ \\ ($Z_n \sim \Normal(0,1)$)
+}
+\item {Grenzwertsatz von de Moivre\\ 
+Seien $X_1,\dots, X_n$ unabhängige Bernoulliverteilt mit gleicher Erfolgwahrscheinlichkeit $p$ und $H_n = \sum_{i=1}^n X_i$,
+\begin{myeq}
+\lim_{n\rarr\infty} H_n^* = \lim_{n\rarr\infty} \frac{H_n - np}{\sqrt{np(1-p)}} \sim \Normal(0,1)
+\end{myeq}
+}
+\item {Normalvertilung als Grenzwert Binomialverteilung
+\begin{myeq}
+H_n\sim \Bin(n,p) : \lim_{n \rarr \infty} \frac{H_n}{n} \sim \Normal\left(p, \frac{p(1-p)}{n}\right)
+\end{myeq}
+}
+\item {Approximationen der Binomialverteilung
+\begin{myeq}
+\begin{aligned}
+H_n \sim \Bin(n, p) : \lim_{n\rarr\infty} F_n(t) &= \lim_{n\rarr\infty} \Pr\left[\frac{H_n}{n} \leq \frac{t}{n}\right] \\ &= \Phi \left(\frac{t-np}{\sqrt{p(1-p)n}}\right) 
+\end{aligned}
+\end{myeq}
+Mit Stetigkeitkorrektur
+\begin{myeq}
+\lim_{n \rarr \infty} F_n(t) = \Phi \left(\frac{t+ 0,5-np}{\sqrt{p(1-p)n}}\right) 
+\end{myeq}
+Durch Poisson $\rarr$ gut wenn $np$ sehr klein gegenüber $n$\\
+Durch Chernoff-Schranken $\rarr$ sehr gute Ergebnisse\\
+Durch Normalverteilung $\rarr$ wenn $np \geq 5$ und $n(1 - p) \geq 5$ (durch $F_n(t)$ Formell oben)
+}
+\end{enumerate}
+
+\section{Induktive Statistik}
+\begin{enumerate}
+\item {Schätzer / Schätzvariable\\
+Sei $f(x;\theta)$ Dichte von $X$, ein Schätzer für Parameter $\theta$ ist Zufallsvariable, die aus mehreren (meist unabhängig und identisch verteilten) Strichprobenvariablen zusammengesetzt ist.
+}
+\item {Erwartungstreu
+\begin{myeq}
+U \text{ erwartungstreu} \Lrarr \E[U] = \theta
+\end{myeq}
+}
+\item {Bias
+\begin{myeq}
+\text{Bias} = \E[U - \theta]
+\end{myeq}
+}
+\item {Mean Squared Error (MSE)
+\begin{myeq}
+MSE = \E[(U - \theta)^2]
+\end{myeq}
+\begin{myeq}
+U \text{ erwartungstreu} \Rarr MSE = \Var[U]
+\end{myeq}
+}
+\item {Effizienz
+\begin{myeq}
+MSE_A < MSE_B \Rarr A \text{ effizienter als } B
+\end{myeq}
+}
+\item {Konsistent im quadratischen Mittel
+\begin{myeq}
+\lim_{n \rarr \infty} MSE = 0
+\end{myeq}
+}
+\item {Stichprobemittel für Strichprobe $X_1,\dots,X_n$ \\$\rarr$ Erwartungstreu für Erwartungswert
+\begin{myeq}
+\overline{X} = \frac{1}{n} \sum_{i = 1}^n X_i
+\end{myeq}
+}
+\item {Strichprobevarianz für Strichprobe $X_1,\dots,X_n$ \\$\rarr$ Erwartungstreu für Varianz
+\begin{myeq}
+S^2 = \frac{1}{n -1} \sum_{i = 1}^n (X_i - \overline{X})^2
+\end{myeq}
+}
+\item {Likelihood-Funktion für Strichprobe $\xwarr$
+\begin{myeq}
+L(\xwarr; \theta) = \prod_{i = 1}^n f(x_i;\theta)
+\end{myeq}
+}
+\item {Maximum-Likelihood-Schätzwert (MLS) $\hat{\theta}$ für $\xwarr$
+\begin{myeq}
+\forall \theta: L(\xwarr;\theta) \leq L(\xwarr;\hat{\theta})
+\end{myeq}
+Tipps: Normalerweise suchen nach Maximal mit Hilfe von $\ln$
+}
+\item {Konfidenzinterval
+\begin{myeq}
+\Pr[U_1 \leq \theta \leq U_2] \geq 1 - \alpha
+\end{myeq}
+$[U_1, U_2]$ ist Konfidenzinterval, symmetrisch wenn $U_1 = U - \delta$ und $U_2 = U + \delta$\\
+$1 - \alpha$ ist Konfidenzniveau
+}
+\item {$\gamma$-Quantil ($x_\gamma$)
+\begin{myeq}
+X \text{ stetig} : F_X(x_\gamma) = \gamma
+\end{myeq}
+Für Standardnormalverteilung: $z_\gamma$ und es gilt $z_\alpha = -z_{1 - \alpha}$
+}
+\end{enumerate}
+
+\subsection{Testen von Hypothesen}
+\begin{enumerate}
+\item {Kritischen Bereich / Ablehnungsbereich
+\begin{myeq}
+K = \{\xwarr \in \R^n : \xwarr \text{ führt zur Ablehnung der Hypothese}\}
+\end{myeq}
+}
+\item {Hypothese \\
+Zu überprüfende: $H_0$ (Nullhypothese), \\
+Alternative: $H_1$
+}
+\item {Fehler\\
+1. Art: $H_0$ gilt, wird aber abgelehnt,\\
+Fehlerwahrscheinlichkeit:
+\begin{myeq}
+\max_{p\in H_0} \Pr[T \in K]$ = $\max_{p\in H_0} \Pr[T \leq K] \approx \Phi\left(\frac{k - np_0}{\sqrt{np_0(1-p_0)}}\right)
+\end{myeq}
+2. Art: $H_0$ wird nicht abgelehnt, obwohl $H_1$ gilt\\
+Fehlerwahrscheinlichkeit:
+\begin{myeq}
+\sup_{p\in H_1} \Pr[T \notin K]$ = $\sup_{p\in H_1} \Pr[T > K] \approx 1 - \alpha
+\end{myeq}
+}
+\item {Vorgehen bei statistischen Tests
+\begin{enumerate}[label= \arabic*. :]
+\item Formulierung von Annahmen
+\item Formulierung der Nullhypothese
+\item Auswahl des Testverfahrens
+\item Durchführung des Test und Entscheidung
+\end{enumerate}
+}
+\item {Approximativen Binomialtest \\
+Annahme: \\
+Seien $X_1, \dots, X_n$ unabhängig bzw. identisch verteilt mit $\Pr[X_i = 1] = p$ und $\Pr[X_i = 0] = 1 - p$ wobei $p$ \textbf{unbekannt} und $n$ hinreichend groß, \\\\
+Testgröße: 
+\begin{myeq}
+Z := \frac{h - np_0}{\sqrt{np_0(1 - p_0)}}
+\end{myeq}
+Tests:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    $H_0$            & $H_1$         & $K$ \\
+    \hline
+    $p=p_0$          & $p \neq p_0$  & $|Z| > z_{1-\frac{\alpha}{2}}$ \\
+    \hline
+    $p\geq p_0$      & $p < p_0$     & $Z < z_\alpha$ \\
+    \hline
+    $p\leq p_0$      & $p > p_0$     & $Z > z_{1 - \alpha}$ \\
+    \hline
+\end{tabular}    
+\end{center}
+}
+\item {Gaußtest\\
+Annahme: \\
+Seien $X_1,\dots,X_n$ unabhängig bzw. identisch verteilt mit $X_i \sim \Normal(\mu, \sigma^2)$ wobei $\sigma^2$ bekannt (und es gelte $\E[X_i] = \mu$ und $\Var[X_i] = \sigma^2$) und $n$ groß genug,\\\\
+Testgröße:
+\begin{myeq}
+Z := \frac{\overline{X} - \mu_0}{\sigma} \sqrt{n}
+\end{myeq}
+Tests:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    $H_0$            & $H_1$         & $K$ \\
+    \hline
+    $\mu=\mu_0$          & $\mu \neq \mu_0$  & $|Z| > z_{1-\frac{\alpha}{2}}$ \\
+    \hline
+    $\mu\geq \mu_0$      & $\mu < \mu_0$     & $Z < z_\alpha$ \\
+    \hline
+    $\mu\leq \mu_0$      & $\mu > \mu_0$     & $Z > z_{1 - \alpha}$ \\
+    \hline
+\end{tabular}    
+\end{center}
+}
+\item {$t$-Test\\
+Annahme: \\
+Seien $X_1,\dots,X_n$ unabhängig bzw. identisch verteilt mit $X_i \sim \Normal(\mu, \sigma^2)$ (und es gelte $\E[X_i] = \mu$ und $\Var[X_i] = \sigma^2$) und $n$ groß genug,\\\\
+Testgröße:
+\begin{myeq}
+T := \frac{\overline{X} - \mu_0}{S} \sqrt{n}
+\end{myeq}
+Tests:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    $H_0$            & $H_1$         & $K$ \\
+    \hline
+    $\mu=\mu_0$          & $\mu \neq \mu_0$  & $|T| > t_{n-1,1-\frac{\alpha}{2}}$ \\
+    \hline
+    $\mu\geq \mu_0$      & $\mu < \mu_0$     & $T < t_{n-1, \alpha}$ \\
+    \hline
+    $\mu\leq \mu_0$      & $\mu > \mu_0$     & $T > t_{n-1, 1 - \alpha}$ \\
+    \hline
+\end{tabular}    
+\end{center}
+Für $n \geq 30$ gelte $t \approx z$
+}
+\item {2-Strichproben-$t$-Test\\
+Annahme: \\
+Seien $X_1,\dots,X_m$ und $Y_1, \dots, Y_n$ jeweils unabhängig bzw. identisch verteilt mit $X_i \sim \Normal(\mu_X, \sigma_X^2)$ und $Y_i \sim \Normal(\mu_Y, \sigma_Y^2)$ mit $\Var[X] = \Var[Y]$ oder $\sigma_X^2 = \sigma_Y^2$\\\\
+Testgröße:
+\begin{myeq}
+T := \sqrt{\frac{n + m - 2}{\frac{1}{m} + \frac{1}{n}}} \frac{\overline{X} - \overline{Y}}{\sqrt{(m - 1) \cdot S_X^2 + (n - 1) \cdot S_Y^2}}
+\end{myeq}
+Tests:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+    \hline
+    $H_0$            & $H_1$         & $K$ \\
+    \hline
+    $\mu=\mu_0$          & $\mu \neq \mu_0$  & $|T| > t_{n + m - 2,1-\frac{\alpha}{2}}$ \\
+    \hline
+    $\mu\geq \mu_0$      & $\mu < \mu_0$     & $T < t_{n + m - 2, \alpha}$ \\
+    \hline
+    $\mu\leq \mu_0$      & $\mu > \mu_0$     & $T > t_{n + m - 2, 1 - \alpha}$ \\
+    \hline
+\end{tabular}    
+\end{center}
+}
+\item {$\chi^2$-Anpassungsest\\
+Annahme:\\
+Seien $X_1,\dots, X_n$ unabhängig und identisch verteilt mit $W_{X_i} = \{1, \dots, k\}$.\\\\
+Hypothese:
+\begin{myeq}
+H_0: \forall i \in \{1,\dots,k\}:\Pr[X = i] = p_i
+\end{myeq}
+\begin{myeq}
+H_1: \exists i \in \{1,\dots,k\}: \Pr[X = i] \neq p_i 
+\end{myeq}
+Testgröße:
+\begin{myeq}
+T = \sum_{i = 1}^k \frac{(h_i + n p_i)^2}{np_i}
+\end{myeq}
+$h_i$ angibt die Häufigkeit, mit der $X_1, \dots, X_n$ den Wert $i$ annimmt.\\\\
+Ablehnungskriterium für $H_0$:
+\begin{myeq}
+T > \chi_{k-1, 1 - \alpha}^2
+\end{myeq}
+}
+\end{enumerate}
+
+\section{Stochastische Prozesse}
+\begin{enumerate}
+\item {Stochastisches Prozess = zeitliche Folgen von Zufallsexperimenten $(X_t)_{t\in T}$ \\
+$T = \N_0 \rarr$ diskreter Zeit\\
+$T = \R_0^{+} \rarr$ kontinuerlicher Zeit
+}
+\end{enumerate}
+
+\subsection{Markov-Kette}
+\begin{enumerate}
+\item {Markov-Ketten $\rarr$ nächste Zustand hängt nur vom Aktuellen Zustand ab
+}
+\item {Zustandmenge 
+\begin{myeq}
+S = \{0,\dots,n-1\}
+\end{myeq}
+} 
+\item {Startverteilung 
+\begin{myeq}
+q_0 : q_0^T \in \R^n
+\end{myeq}
+}
+\item {Übergangsmatrix
+\begin{myeq}
+P = (p_{ij})_{0\leq i, j \leq n}, ~p_{ij} = \Pr[X_{t+1} = j ~|~ X_t = i]
+\end{myeq}
+}
+\item {Wahrscheinlichkeitraum\\
+Sei $\omega = (x_0, x_1, \dots, x_{t_0}) \in \Omega$
+\begin{myeq}
+\Pr[\omega] = (q_0)_{x_0} \cdot \prod_{i=1}^{t_0} \Pr[X_i = x_i~|~ X_{i-1} = x_{i-1}] 
+\end{myeq}
+}
+\item {Berechnung der Übergangswahrscheinlichkeit
+\begin{myeq}
+(q_{t + 1})_k = \sum_{i = 0}^{n - 1} p_{ik} \cdot (q_t)_i \text{ oder } q_{t + 1} = q_t \cdot P
+\end{myeq}
+\begin{myeq}
+q_{t + k} = q_t \cdot P^k
+\end{myeq}
+Einfacher: Diagonalisierung!
+\begin{myeq}
+P^k = B \cdot D^k \cdot B^{-1}
+\end{myeq}
+}
+\item {Übergangszeit / Hitting Time ($i \neq j$)
+\begin{myeq}
+T_{ij} = \min\{n \geq 0 ~|~ X_n = j \land X_0 = i \},
+\end{myeq}
+\begin{myeq}
+\forall i,j \in S, i \neq j : h_{ij} = \E[T_{ij}] = 1 + \sum_{k\neq j} p_{ik}h_{kj}
+\end{myeq}
+}
+\item {Rückkehrzeit / Recurrence Time ($i = j$)
+\begin{myeq}
+T_{i} = \min\{n \geq 1 ~|~ X_n = i \land X_0 = i \},
+\end{myeq}
+\begin{myeq}
+h_{i} = \E[T_{i}] = 1 + \sum_{k\neq i} p_{ik}h_{ki}
+\end{myeq}
+}
+\item {Ankunftwahrscheinlichkeit von $i$ nach $j$
+\begin{myeq}
+f_{ij} = \Pr[T_{ij} < \infty] = p_{ij} + \sum_{k\neq j} p_{ik}f_{kj}
+\end{myeq}
+}
+\item {Rückkehrwahrscheinlichkeit
+\begin{myeq}
+f_i = \Pr[T_i < \infty] = p_{ii} + \sum_{k\neq i} p_{ik}f_{ki}
+\end{myeq}
+}
+\item {Stationäre Verteilung $\pi$
+\begin{myeq}
+\pi = \pi \cdot P
+\end{myeq}
+Tipps: Erstmal prüfen, ob die Markov-Kette ergodisch ist. Wenn ja nimmt die Formel nummer 20.
+}
+\item {Absorbierende Zustand $i$
+\begin{myeq}
+\forall j \neq i : p_{ij} = 0, ~p_{ii} = 1 
+\end{myeq}
+\textit{"$i$ absorbierend, wenn aus $i$ keine Übergänge herausführen"}
+}
+\item {Transiente Zustand $i$
+\begin{myeq}
+f_i < 1
+\end{myeq}
+\textit{"$i$ transient, wenn der Prozess mit positiver Wahrscheinlichkeit $i -f_i > 0$ nach einem Besuch von $i$ nie mehr dorthin zurückkehrt"}
+}
+\item {Rekurrente Zustand $i$
+\begin{myeq}
+f_i = 1
+\end{myeq}
+}
+\item {Irreduzibel Markov-Kette
+\begin{myeq}
+\forall i,j \in S, ~\exists n\in \N: p_{ij}^{(n)} > 0
+\end{myeq}
+\textit{"Jeder Zustand ist von anderen Zustand aus erreichbar"} oder \textit{"Der Graph ist stark zusammenhängend"}\\
+Es folgt auch
+\begin{myeq}
+\forall f_{ij} = \Pr[T_{ij} < \infty] = 1, \quad h_{ij} = \E[T_{ij}] \text{ existiert}
+\end{myeq}
+}
+\item {Stationäre Verteilung der irreduziblen Markov-Kette
+\begin{myeq}
+\forall j \in S : \pi_j = \frac{1}{h_{jj}}
+\end{myeq}
+}
+\item {Periode \\ 
+Größte Zahl $\xi \in \N$, so dass gilt:
+\begin{myeq}
+\{n \in \N_0 ~|~ p_{jj}^{(n)} > 0\} \subseteq \{i \cdot \xi ~|~ i \in \N_0\}
+\end{myeq}
+Falls $\xi = 1$, dann ist der Zustand aperiodisch.\\
+Eine Markov-Kette ist aperiodisch, wenn alle Zustände aperiodisch sind.\\
+}
+\item {Aperiodisch \\
+Ein Zustand $i \in S$ ist sicherlich (oder genau dann) aperiodisch, wenn:
+\begin{enumerate}[label=\alph*)]
+\item eine Schleife besitzt ($p_{ii} > 0$), oder
+\item auf mindestens 2 Wegen $W_1$ und $W_2$ liegt, deren Längen $l_1$ und $l_2$ teilfremd sind (ggt($l_1$, $l_2$) = 1). 
+\end{enumerate}
+Ein Zustand ist gdw. aperiodisch, wenn
+\begin{myeq}
+\exists n_0 \in \N, ~\forall n \in N, ~n \geq n_0: p_{ii}^{(n)} > 0
+\end{myeq}
+Aperiodizität einer irreduziblen Markov-Ketten kann durch Schleife für alle Zustände sichergestellt.
+}
+\item {Korollar 139\\
+Für irreduzible, aperiodische Markov-Ketten gilt: 
+\begin{myeq}
+\exists t \in \N, ~\forall i \in S: (q_t)_i > 0
+\end{myeq}
+}
+\item {Ergodische Markov-Kette = Irreduzible + Aperiodisch
+\begin{myeq}
+\lim_{n \rarr \infty} q_n = \pi
+\end{myeq}
+}
+\end{enumerate}
+
+\subsection{Doppelstochastische Matrizen}
+Sei $P$ eine Matrix der Größe $n\times n$
+\begin{enumerate}
+\item {Stochastisch
+\begin{myeq}
+\forall i \in \{0, \dots, n-1\} : \sum_{j=0}^{n-1} p_{ij} = 1
+\end{myeq}
+\textit{"alle Zeilensumme sind gleich 1."}
+}
+\item {Doppelstochastisch
+\begin{myeq}
+P \text{ stochastisch} \land \forall j \in \{0, \dots, n-1\} : \sum_{i=0}^{n-1} p_{ij} = 1
+\end{myeq}
+\textit{"alle Zeilensumme und Spaltensumme sind gleich 1."}
+}
+\item {Übergangsmatrix von Markov-Kette ist immer stochastisch
+}
+\item {Eigenvektor $\pi$ zum Eigenwert 1 bzgl. Multiplikation von links
+\begin{myeq}
+P \in \R^{n\times n} \text{ doppelstochastisch}, ~\pi = \left(\frac{1}{n}, \dots, \frac{1}{n}\right) : \pi = \pi \cdot P
+\end{myeq}
+}
+\item {Ergodische endliche Markov-Kette $(X_t)_{t \in \N_0} \in \R^{n\times n}$
+\begin{myeq}
+\forall (X_t)_{t \in \N_0} \text{ doppelstoch. und ergodisch} : \lim_{t \rarr \infty} q_t = \left(\frac{1}{n},\dots,\frac{1}{n}\right)
+\end{myeq}
+}
+\end{enumerate}
+
+\section{Notizen}
+\begin{enumerate}
+\item {Partitionen von Mengen (Größe $n$) zu disjunkten Teilmengen (Größe $k$)
+\begin{myeq}
+|\Omega| = \frac{\prod_{i \in \{0\dots\left\lfloor\frac{n}{k}\right\rfloor - 1\}} \begin{pmatrix}n - i \cdot k \\ k\end{pmatrix}}{\left(\left\lfloor\frac{n}{k}\right\rfloor\right)!}
+\end{myeq}
+}
+\item {Geometrische Summe
+\begin{myeq}
+\sum_{i = 0}^n ar^i = \frac{a\cdot (1 - r)^n}{1 - r}, \quad \sum_{i = 0}^\infty ar^i = \frac{a}{1 - r}
+\end{myeq}
+}
+\item {Konvergierende Summe 
+\begin{myeq}
+\sum_{i = 1}^\infty \left(\frac{1}{2}\right)^i \approx 1
+\end{myeq}
+}
+\item {Exponentielle Funktion
+\begin{myeq}
+e^x = \sum_{n = 0}^\infty \frac{x^n}{n!}
+\end{myeq}
+}
+\end{enumerate}
+
+
+\section{Schluss}
+Ich garantiere hiermit die Korrektheit dieser Zusammenfassung nicht. Richtig ist immer die Vorlesung.\\\\
+Alle Materialen sind aus der Vorlesung genommen, weswegen es Rechtschutz haben kann!\\\\
+Fehler? Verbesserungsvorschlag?\\ 
+Kontakt: yudhistira.arief.wibowo@tum.de\\\\
+Viel Erfolg bei Klausur! 
+
+\end{multicols*}
+
+
+\end{document}
