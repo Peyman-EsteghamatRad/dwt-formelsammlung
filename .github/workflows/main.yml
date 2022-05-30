@@ -17,7 +17,7 @@ jobs:
       - name: Get update and install TeXLive
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive
+          sudo apt-get install -y texlive-full
       - name: Build latex to PDF
         run: |
           mkdir build
