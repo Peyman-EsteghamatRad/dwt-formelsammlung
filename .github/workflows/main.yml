@@ -17,7 +17,8 @@ jobs:
       - name: Get update and install TeXLive
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-full
+          sudo apt-get install -y texlive
+          sudo tlmgr install environ amssymb fancyhdr graphicx
       - name: Build latex to PDF
         run: |
           mkdir build
@@ -26,7 +27,7 @@ jobs:
       - name: Upload PDF to GitHub
         uses: actions/upload-artifact@v3
         with:
-          name: dwt-formellsammlsung
+          name: dwt-formellsammlung
           path: ${{ env.pdf-name }}
           if-no-files-found: error
           
