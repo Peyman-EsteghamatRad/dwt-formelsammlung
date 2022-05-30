@@ -18,6 +18,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive
+          sudo tlmgr init-usertree
           sudo tlmgr install environ amssymb fancyhdr graphicx
       - name: Build latex to PDF
         run: |
