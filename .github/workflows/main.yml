@@ -1,0 +1,33 @@
+name: Compile Latex and Release
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  Compile and Push:
+    runs-on: ubuntu:latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      pdf-name: dwt-formellsammlung.pdf
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Get update and install TeXLive
+        run: |
+          sudo apt-get update 
+          sudo apt-get install texlive
+      - name: Build latex to PDF
+        run: |
+          mkdir build
+          pdflatex -output-directory=. src/main.tex
+          mv main.pdf ${{ env.pdf-name }}
+      - name: Upload PDF to GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          name: dwt-formellsammlsung
+          path: ${{ env.pdf-name }}
+          if-no-files-found: error
+          
+
