@@ -1,6 +1,6 @@
 name: Compile Latex and Release
 on: 
-  push:
+  pull_request:
     branches:
       - main
 jobs:
@@ -23,11 +23,3 @@ jobs:
           mkdir build
           pdflatex -output-directory=. src/main.tex
           mv main.pdf ${{ env.pdf-name }}
-      - name: Upload PDF to GitHub
-        uses: actions/upload-artifact@v3
-        with:
-          name: dwt-formellsammlung
-          path: ${{ env.pdf-name }}
-          if-no-files-found: error
-          
-
