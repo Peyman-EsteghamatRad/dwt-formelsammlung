@@ -20,9 +20,9 @@ jobs:
           sudo apt-get install -y texlive-full
       - name: Prepare PDF
         run: |
-          sed -i 's/GITHUB_SERVER_URL/${{ GITHUB_SERVER_URL }}/g' src/main.tex
-          sed -i 's/GITHUB_REPOSITORY/${{ GITHUB_REPOSITORY }}/g' src/main.tex
-          sed -i 's/GITHUB\\_SHA/test/g' src/main.tex
+          sed -i 's/GITHUB_SERVER_URL/${{ env.GITHUB_SERVER_URL }}/g' src/main.tex
+          sed -i 's/GITHUB_REPOSITORY/${{ env.GITHUB_REPOSITORY }}/g' src/main.tex
+          sed -i 's/GITHUB\\_SHA/${{ env.GITHUB_SHA }}/g' src/main.tex
       - name: Build latex to PDF
         run: |
           mkdir build
