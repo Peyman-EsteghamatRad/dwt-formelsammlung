@@ -1,10 +1,10 @@
-# DWT Formellsammlung
+# DWT Formelsammlung
 
 Basically all formulas which discussed in module "Discrete Probability Theory" or "Diskrete Wahrscheinlichkeittheorie" taught in TUM for Bachelor. Feel free to contribute or point out if there are mistakes.
 
 # How To
 
-You could just download the latest build artifact on https://github.com/itsmeyaw/dwt-formellsammlung/actions?query=is%3Asuccess++.
+You could just download the latest build artifact on https://github.com/itsmeyaw/dwt-formelsammlung/actions?query=is%3Asuccess++.
 
 You also could just pull and compile the `main.tex` file in the `src` directory.
 
