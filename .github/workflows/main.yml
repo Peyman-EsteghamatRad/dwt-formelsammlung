@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: '0 0 1 */2 *'
 jobs:
   CompileAndRelease:
     runs-on: ubuntu-latest
