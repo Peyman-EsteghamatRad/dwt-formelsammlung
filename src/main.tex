@@ -663,7 +663,10 @@ f(x) = \begin{cases}
 \lambda \cdot e^{-\lambda x} &x \geq 0\\
 0 &\text{sonst}
 \end{cases}, \quad
-F(x) = 1 - e^{-\lambda x},
+F(x) = \begin{cases}
+1 - e^{-\lambda x} &x \geq 0\\
+0 &\text{sonst}
+\end{cases},
 \end{myeq}
 \begin{myeq}
 \E[X] = \frac{1}{\lambda}, \quad \Var[X] = \frac{1}{\lambda^2}
@@ -976,7 +979,7 @@ Tests:
 \end{tabular}    
 \end{center}
 }
-\item {$\chi^2$-Anpassungsest\\
+\item {$\chi^2$-Anpassungstest\\
 Annahme:\\
 Seien $X_1,\dots, X_n$ unabhängig und identisch verteilt mit $W_{X_i} = \{1, \dots, k\}$.\\\\
 Hypothese:
@@ -988,7 +991,7 @@ H_1: \exists i \in \{1,\dots,k\}: \Pr[X = i] \neq p_i
 \end{myeq}
 Testgröße:
 \begin{myeq}
-T = \sum_{i = 1}^k \frac{(h_i + n p_i)^2}{np_i}
+T = \sum_{i = 1}^k \frac{(h_i - n p_i)^2}{np_i}
 \end{myeq}
 $h_i$ angibt die Häufigkeit, mit der $X_1, \dots, X_n$ den Wert $i$ annimmt.\\\\
 Ablehnungskriterium für $H_0$:
