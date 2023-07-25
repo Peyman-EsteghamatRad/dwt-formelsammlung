@@ -1,10 +1,11 @@
 name: Compile Latex and Release
-on: 
+on:
   push:
     branches:
       - main
   schedule:
-    - cron: '0 0 1 */2 *'
+    - cron: "0 0 1 */2 *"
+  workflow_dispatch:
 jobs:
   CompileAndRelease:
     runs-on: ubuntu-latest
@@ -19,7 +20,7 @@ jobs:
       - name: Get update and install TeXLive
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive texlive-lang-german texlive-latex-extra 
+          sudo apt-get install -y texlive texlive-lang-german texlive-latex-extra
       - name: Build latex to PDF
         run: |
           mkdir build
@@ -31,5 +32,3 @@ jobs:
           name: dwt-formellsammlung
           path: ${{ env.pdf-name }}
           if-no-files-found: error
-          
-
