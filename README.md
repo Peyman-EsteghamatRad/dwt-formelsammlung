@@ -4,7 +4,7 @@ Basically all formulas which discussed in module "Discrete Probability Theory" o
 
 # How To
 
-You could just download the latest build artifact on https://github.com/itsmeyaw/dwt-formelsammlung/actions?query=is%3Asuccess++.
+You could just download the latest build artifact [on this page](https://github.com/itsmeyaw/dwt-formelsammlung/actions?query=is%3Asuccess+actor%3Aitsmeyaw+branch%3Amain+event%3Apush).
 
 You also could just pull and compile the `main.tex` file in the `src` directory.
 
